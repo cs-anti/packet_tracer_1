@@ -1,0 +1,42 @@
+ena
+int g0/0
+ip add 40.40.40.33 255.255.255.240
+
+no sh
+ex
+int g0/1 
+ip add 192.168.60.65 255.255.255.240
+no sh
+des lan2
+ex
+int g0/2
+ip add 172.16.30.9 255.255.255.248
+des lan3
+ex
+ip dhcp pool szerver30
+network 172.16.30.0 255.255.255.240
+dns-server
+ip dhcp pool szerver60
+network 192.168.60.64 255.255.255.240
+default-router 192.168.60.65
+dns-server 182.16.30.10
+
+hostname R1
+ip domain-name cisco.lan
+crypto key generate rsa
+2048
+ip ssh version 2
+line vty 0 4
+transport input ssh
+login local
+exit
+user user pass pass
+
+int fa0/0
+ip address 10.0.0.1 255.0.0.0
+no shut
+
+
+int serial 0/0/0
+ip add 20.0.0.1 255.0.0.0
+no shut
